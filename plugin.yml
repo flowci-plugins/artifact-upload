@@ -1,0 +1,11 @@
+name: artifact-upload
+version: 1.0.0
+icon: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Maven_logo.svg"
+
+inputs:
+- name: FLOWCI_JOB_ARTIFACT_PATH
+  type: string
+  required: true
+
+script: |
+  plugindir=${FLOWCI_AGENT_PLUGIN_DIR}/artifact-upload
