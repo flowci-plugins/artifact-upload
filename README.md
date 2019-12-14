@@ -28,4 +28,9 @@ steps:
 
   - name: package
     plugin: 'maven-package'
+
+  - name: upload
+    envs:
+      FLOWCI_JOB_ARTIFACT_PATH: '${FLOWCI_MAVEN_PKGS}' # upload packges from last step
+    plugin: 'artifact-upload'
 ```
