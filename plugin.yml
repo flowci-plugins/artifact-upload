@@ -1,6 +1,6 @@
 name: artifact-upload
 version: 1.0.0
-icon: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Maven_logo.svg"
+icon: "upload.svg"
 
 inputs:
 - name: FLOWCI_JOB_ARTIFACT_PATH
@@ -9,3 +9,4 @@ inputs:
 
 script: |
   plugindir=${FLOWCI_AGENT_PLUGIN_DIR}/artifact-upload
+  python3 ${plugindir}/src/upload.py
