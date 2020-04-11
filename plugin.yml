@@ -7,6 +7,9 @@ inputs:
   type: string
   required: true
 
+docker:
+  image: ubuntu:18.04
+
 script: |
   plugindir=${FLOWCI_AGENT_PLUGIN_DIR}/artifact-upload
   python3 ${plugindir}/src/upload.py
