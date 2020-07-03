@@ -3,11 +3,11 @@ version: 1.0.0
 icon: "upload.svg"
 
 inputs:
-- name: artifact.path
+- name: artifact_path
   type: string
   required: false
 
-- name: artifact.pattern
+- name: artifact_pattern
   type: string
   required: false
 
@@ -15,11 +15,11 @@ script: |
   plugindir=${FLOWCI_AGENT_PLUGIN_DIR}/artifact-upload
   cd ${FLOWCI_GIT_REPO}
 
-  if [[ -n ${artifact.path} ]]; then
-    python3 ${plugindir}/src/upload.py ${artifact.path}
+  if [[ -n ${artifact_path} ]]; then
+    python3 ${plugindir}/src/upload.py ${artifact_path}
   fi
 
-  if [[ -n ${artifact.pattern} ]]; then
-    found=$(find . -type f -name "${artifact.pattern}")
+  if [[ -n ${artifact_pattern} ]]; then
+    found=$(find . -type f -name "${artifact_pattern}")
     python3 ${plugindir}/src/upload.py ${found} 
   fi

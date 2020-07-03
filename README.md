@@ -6,8 +6,8 @@ Upload job artifact (directory or file)
 
 ## Inputs
 
-- `artifact.path` (optional): dirs or files to upload, for example: {path}/a.jar;{dir};{dir}/b.zip
-- `artifact.pattern` (optional): the file serach pattern to find out files and upload
+- `artifact_path` (optional): dirs or files to upload, for example: {path}/a.jar;{dir};{dir}/b.zip
+- `artifact_pattern` (optional): the file serach pattern to find out files and upload
 
 ## How to use it
 
@@ -32,6 +32,6 @@ steps:
 
   - name: upload
     envs:
-      artifact.path: '${FLOWCI_MAVEN_PKGS}' # upload packges from last step
+      artifact_path: '${FLOWCI_MAVEN_PKGS}' # upload packges from last step
     plugin: 'artifact-upload'
 ```
