@@ -3,10 +3,23 @@ version: 1.0.0
 icon: "upload.svg"
 
 inputs:
-- name: FLOWCI_JOB_ARTIFACT_PATH
+- name: artifact.path
   type: string
-  required: true
+  required: false
+
+- name: artifact.pattern
+  type: string
+  required: false
 
 script: |
   plugindir=${FLOWCI_AGENT_PLUGIN_DIR}/artifact-upload
-  python3 ${plugindir}/src/upload.py
+  cd ${FLOWCI_GIT_REPO}
+
+  if [[ -n ${artifact.path} ]]; then
+    python3 ${plugindir}/src/upload.py ${artifact.path}
+  fi
+
+  if [[ -n ${artifact.pattern} ]]; then
+    found=$(find . -type f -name "${artifact.pattern}")
+    python3 ${plugindir}/src/upload.py ${found} 
+  fi

@@ -1,27 +1,34 @@
 import os
+import sys
+import getopt
 from flowci import client
 
 api = client.Client()
+uploaded = set()
 
+def startFromInput(path):
+    for line in path.splitlines():
+        for item in line.split(";"):
+            if item == '' or not os.path.exists(item):
+                log("path or file '%s' not found" % item)
+                continue
 
-def start(path):
-    items = path.split(";")
+            if os.path.isfile(item):
+                uploadFile(item)
+                continue
 
-    for item in items:
-        if item == '' or not os.path.exists(item):
-            continue
-
-        if os.path.isfile(item):
-            uploadFile(item)
-            continue
-
-        if os.path.isdir(item):
-            uploadDir(item)
+            if os.path.isdir(item):
+                uploadDir(item)
 
 
 def uploadFile(path, srcDir = None):
+    if path in uploaded:
+        return
+
+    uploaded.add(path)
+    log("file '%s' will be loaded.." % path)
     r = api.uploadJobArtifact(path, srcDir)
-    log("file %s upload status is %s" % (path, r))
+    log("upload status is %s" % r)
 
 
 def uploadDir(path, parent = ''):
@@ -42,5 +49,6 @@ def log(msg):
     print("[artifact-upload]: " + msg)
 
 
-inPath = client.GetVar("FLOWCI_JOB_ARTIFACT_PATH")
-start(inPath)
+# start
+inputStr = sys.argv[1]
+startFromInput(inputStr)
